@@ -644,13 +644,26 @@ const ChartComponent = ({ data = [] }) => {
                     "rgba(255, 206, 86, 0.6)",
                     "rgba(75, 192, 192, 0.6)",
                     "rgba(153, 102, 255, 0.6)",
+                    "rgba(70, 130, 180, 0.6)",  // Steel Blue
+                    "rgba(173, 255, 47, 0.6)",  // Lime Yellow
+                    "rgba(255, 105, 180, 0.6)", // Hot Pink
+                    "rgba(240, 128, 128, 0.6)",
+                    "rgba(255, 65, 120, 0.6)", // Hot Pink
+                    "rgba(120, 118, 48, 0.6)"
                 ],
+
                 borderColor: [
                     "rgba(255, 99, 132, 1)",
                     "rgba(54, 162, 235, 1)",
                     "rgba(255, 206, 86, 1)",
                     "rgba(75, 192, 192, 1)",
                     "rgba(153, 102, 255, 1)",
+                    "rgba(70, 130, 180, 1)",  // Steel Blue
+                    "rgba(173, 255, 47, 1)",  // Lime Yellow
+                    "rgba(255, 105, 180, 1)", // Hot Pink
+                    "rgba(240, 128, 128, 1)",
+                    "rgba(255, 65, 120, 1)", // Hot Pink
+                    "rgba(120, 118, 48, 1)"
                 ],
                 borderWidth: 1,
             },
