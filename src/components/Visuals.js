@@ -26,7 +26,7 @@ const Visuals = () => {
                 if (res.ok) {
                     const data = await res.json();
                     setexpenseItem(data); // Assuming the response contains an array of expense items
-                    console.log(data);
+
                 } else {
                     console.error('Failed to fetch expense items:', res.status);
                 }
