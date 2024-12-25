@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Cookies from 'js-cookie';
+import { Link, useNavigate } from 'react-router-dom'; // Import the navigate hook
 
 const ExpenseItem = () => {
     const [expense, setExpense] = useState({
@@ -13,6 +14,7 @@ const ExpenseItem = () => {
         subLocation: "",
         currency: ""
     });
+    const navigate = useNavigate();
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -25,7 +27,7 @@ const ExpenseItem = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         // Handle form submission, e.g., send the data to an API
-        const res = await fetch('http://localhost:3030/expenseItem', {
+        const res = await fetch('https://expensetrackerb.onrender.com/expenseItem', {
             method: "POST",
             headers: {
                 "Content-type": "application/json",
@@ -35,10 +37,23 @@ const ExpenseItem = () => {
             })
 
         })
-        const dataFetched = await res.json();
-
-        console.log(res);
-        console.log(dataFetched)
+        if (res.ok === true) {
+            setExpense({
+                userId: Cookies.get("userId"),
+                title: "",
+                amount: "",
+                date: "",
+                category: "",
+                paymentMethod: "",
+                location: "",
+                subLocation: "",
+                currency: ""
+            })
+            navigate('/visuals')
+        }
+        else {
+            //toast
+        }
         // console.log(expense)
     };
 

@@ -26,7 +26,7 @@ const Login = () => {
         }
 
         // Call login function or API here
-        const res = await fetch('http://localhost:3030/user/login', {
+        const res = await fetch('https://expensetrackerb.onrender.com/user/login', {
             method: "POST",
             headers: {
                 "Content-type": "application/json",

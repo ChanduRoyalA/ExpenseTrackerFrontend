@@ -1,89 +1,13 @@
-// import React, { useState } from 'react';
-
-// const ExpenseItemList = ({ data, onDelete }) => {
-
-//     const del = () => {
-//         console.log(data)
-//         onDelete(data._id)
-//     }
-
-
-//     // Format Date Function
-//     const formatDate = (dateString) => {
-//         const date = new Date(dateString);
-//         return date.toLocaleString(); // Converts to local date and time
-//     };
-
-//     return (
-//         <div className="container mx-auto py-8 px-4">
-//             <div className="bg-white shadow-md rounded-lg overflow-hidden">
-//                 <div className="p-6 border-b border-gray-200">
-//                     <h2 className="text-2xl font-semibold text-gray-800">Your Expenses</h2>
-//                 </div>
-//                 <div className="p-6">
-//                     {data.length === 0 ? (
-//                         <p className="text-gray-600">No expenses found. Add some to get started!</p>
-//                     ) : (
-//                         <div className="overflow-x-auto">
-//                             <table className="w-full">
-//                                 <thead className="bg-gray-50">
-//                                     <tr>
-//                                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
-//                                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
-//                                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date & Time</th>
-//                                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
-//                                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
-//                                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Payment Method</th>
-//                                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Recurring</th>
-//                                         {/* <th className="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SubLocation</th> */}
-//                                         {/* <th className="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tags</th> */}
-//                                         <th className="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-//                                     </tr>
-//                                 </thead>
-//                                 <tbody className="bg-white divide-y divide-gray-200">
-//                                     {data.map((item, index) => (
-//                                         <tr key={index} className="hover:bg-gray-50 transition-colors">
-//                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{item.title}</td>
-//                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-//                                                 {item.amount} {item.currency || "USD"}
-//                                             </td>
-//                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{formatDate(item.date)}</td>
-//                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{item.category}</td>
-//                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{item.location}</td>
-//                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{item.paymentMethod}</td>
-//                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{item.recurring ? 'Yes' : 'No'}</td>
-//                                             {/* <td className="px-5 py-4 whitespace-nowrap text-sm text-gray-900">{item.subLocation}</td> */}
-//                                             {/* <td className="px-5 py-4 whitespace-nowrap text-sm text-gray-900">
-//                                                 {item.tags.length > 0 ? item.tags.join(', ') : 'No tags'}
-//                                             </td> */}
-//                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-//                                                 <button
-//                                                     className="text-red-600 hover:text-red-800 font-semibold"
-//                                                     onClick={() => { onDelete(item._id) }}
-//                                                 >
-//                                                     Delete
-//                                                 </button>
-//                                             </td>
-//                                         </tr>
-//                                     ))}
-//                                 </tbody>
-//                             </table>
-//                         </div>
-//                     )}
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default ExpenseItemList;
-
-
+import Cookies from 'js-cookie';
 import React, { useState } from 'react';
+import { Link,useNavigate } from 'react-router-dom';
+
+
 
 const ExpenseItemList = ({ data, onDelete }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
+    const navigate = useNavigate();
 
     // Calculate the start and end index for the current page
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -117,11 +41,16 @@ const ExpenseItemList = ({ data, onDelete }) => {
         setCurrentPage(page);
     };
 
+
     return (
         <div className="container mx-auto py-8 px-4">
             <div className="bg-white shadow-md rounded-lg overflow-hidden">
-                <div className="p-6 border-b border-gray-200">
+                <div className="p-6 border-b border-gray-200 flex justify-between align-middle">
                     <h2 className="text-2xl font-semibold text-gray-800">Your Expenses</h2>
+                    <div className='flex gap-4'>
+                        <Link to='/'> <button className='w-fit px-4 bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500'>Add Expense</button></Link>
+                        <button className='w-fit px-4 bg-red-500 text-white py-2 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500' onClick={() => { Cookies.remove("userId"); Cookies.remove("userToken"); navigate('/login') }}>Logout</button>
+                    </div>
                 </div>
                 <div className="p-6">
                     {data.length === 0 ? (

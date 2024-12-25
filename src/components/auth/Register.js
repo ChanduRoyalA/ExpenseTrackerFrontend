@@ -25,16 +25,31 @@ const Register = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
+        console.log(formData)
 
-        if (password !== password2) {
+        if (formData.password !== formData.password2) {
             setError("Passwords do not match");
             return;
         }
-
-        // Submit the form or call the API for registration
-        console.log("Registering with", { name, email, password });
+        const res = await fetch('https://expensetrackerb.onrender.com/user/register', {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify({
+                email: formData.email, password: formData.password, name: formData.name
+            })
+        })
+        console.log(res);
+        if (res.ok === true) {
+            navigate('/login')
+        }
+        else {
+            //toast
+        }
+        // console.log("Registering with", { name, email, password });
 
         setError(""); // Clear error on successful validation
     };

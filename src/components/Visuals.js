@@ -19,7 +19,7 @@ const Visuals = () => {
 
             try {
                 const userId = Cookies.get("userId");
-                const res = await fetch(`http://localhost:3030/expenseItem/${userId}`, {
+                const res = await fetch(`https://expensetrackerb.onrender.com/expenseItem/${userId}`, {
                     method: "GET",
                 });
 
@@ -39,7 +39,7 @@ const Visuals = () => {
     }, [navigate]);
     const onDelete = async (id) => {
         try {
-            const res = await fetch(`http://localhost:3030/expenseItem/${id}`, {
+            const res = await fetch(`https://expensetrackerb.onrender.com/expenseItem/${id}`, {
                 method: "DELETE",
                 headers: {
                     "Content-type": "application/json",
